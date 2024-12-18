@@ -131,5 +131,9 @@ class Transition(object):
         return [self.line]
 
 
+class Note(object):
+    def __init__(self, line):
+        self.line = line
+
 class PageBreak(object):
     pass

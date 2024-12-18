@@ -46,6 +46,7 @@ class Settings:
     centered_action_style: ParagraphStyle
     slug_style: ParagraphStyle
     transition_style: ParagraphStyle
+    note_style: ParagraphStyle
 
     # Title page styles
     title_style: ParagraphStyle
@@ -151,7 +152,12 @@ class Settings:
             spaceAfter=line_height,
             alignment=TA_RIGHT,
         )
-
+        self.notes_style = ParagraphStyle(
+            'note', default_style,
+            spaceBefore=line_height,
+            spaceAfter=line_height,
+            alignment=TA_LEFT,
+        )
         self.title_style = ParagraphStyle(
             'title', default_style,
             fontSize=font_size * 2, leading=font_size * 3,
@@ -357,6 +363,8 @@ def to_pdf(
             add_slug(story, para, settings.slug_style, settings.strong_slugs)
         elif isinstance(para, Transition):
             add_paragraph(story, para, settings.transition_style)
+        elif isinstance(para, Note):
+            add_paragraph(story, para, settings.note_style)
         elif isinstance(para, types.PageBreak):
             story.append(platypus.PageBreak())
         else:

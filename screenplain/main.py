@@ -67,6 +67,13 @@ def main(args):
         )
     )
     parser.add_option(
+        '--pdf-notes',
+        action='store_true',
+        dest='notes',
+        help=(
+            'Include notes (double-brackets) in PDF output.'
+        )
+    parser.add_option(
         '--encoding',
         default='utf-8-sig',
         help="Text encoding of the input file. " +
@@ -149,6 +156,7 @@ def main(args):
             from screenplain.export import pdf
             settings = pdf.create_default_settings()
             settings.strong_slugs = options.strong
+            settings.include_notes = options.pdf_notes
             pdf.to_pdf(screenplay, output, settings=settings)
     finally:
         if output_file:
